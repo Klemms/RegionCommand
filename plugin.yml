@@ -1,0 +1,22 @@
+name: RegionCommand
+main: fr.klemms.regioncommand.RegionCommand
+version: 1.3.1
+load: STARTUP
+author: Klemms
+depend: [WorldGuard,WGRegionEvents]
+commands:
+    addregioncommand:
+        description: Adds a command to execute for a region
+        usage: /addregioncommand <region_name> <enter/leave> <command>
+        permission: regioncommand.addregioncommand
+        permission-message: You do not have permission
+    removeregioncommand:
+        description: Removes a command from a region
+        usage: /removeregioncommand <region_name> <enter/leave> <command>
+        permission: regioncommand.removeregioncommand
+        permission-message: You do not have permission
+    regioncommandlist:
+        description: Lists all commands to be executed
+        usage: /regioncommandlist
+        permission: regioncommand.regioncommandlist
+        permission-message: You do not have permission
