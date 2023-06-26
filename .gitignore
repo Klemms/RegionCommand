@@ -1,6 +1,10 @@
 ### Development (I added the jars to git.)
 #.gitignore
 
+.idea/
+
+dependency-reduced-pom.xml
+
 ### JDeveloper template
 # default application storage directory used by the IDE Performance Cache feature
 .data/
@@ -28,7 +32,6 @@ cwallet.sso.lck### Cloud9 template
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 

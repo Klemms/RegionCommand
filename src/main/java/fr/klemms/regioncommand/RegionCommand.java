@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bstats.bukkit.Metrics;
 
 import fr.klemms.regioncommand.commands.CommandAddRegionCommand;
 import fr.klemms.regioncommand.commands.CommandRegionCommandList;
@@ -13,8 +14,9 @@ import fr.klemms.regioncommand.commands.CommandRemoveRegionCommand;
 import fr.klemms.regioncommand.events.PluginListener;
 
 public class RegionCommand extends JavaPlugin {
-	
+
 	public static Plugin pl;
+	public static Metrics metrics;
 	public static List<Region> commandForRegion = new ArrayList<Region>();
 	public static final int VERSION = 3;
 	public static final String PLUGIN_NAME = "RegionCommand";
@@ -30,17 +32,17 @@ public class RegionCommand extends JavaPlugin {
 		getCommand("removeregioncommand").setExecutor(new CommandRemoveRegionCommand());
 		getCommand("regioncommandlist").setExecutor(new CommandRegionCommandList());
 		this.getServer().getPluginManager().registerEvents(new PluginListener(), this);
-		
+
 		Bukkit.getScheduler().runTaskTimerAsynchronously(this, new ThreadCheckUpdate(), 5, 56000);
-		
-		Metrics metrics = new Metrics(this);
+
+		metrics = new Metrics(this, 1068);
 	}
 
 	@Override
 	public void onDisable() {
-		
+
 	}
-	
+
 	public static void saveToDisk() {
 		int num = 0;
 		for(int a = 0; a < RegionCommand.commandForRegion.size(); a++) {
