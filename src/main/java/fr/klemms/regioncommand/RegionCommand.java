@@ -1,8 +1,10 @@
 package fr.klemms.regioncommand;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.klemms.regioncommand.commands.CommandChangeRegionCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,10 +20,12 @@ public class RegionCommand extends JavaPlugin {
 	public static Plugin pl;
 	public static Metrics metrics;
 	public static List<Region> commandForRegion = new ArrayList<Region>();
-	public static final int VERSION = 3;
+	public static final String BRANCH = "release";
+	public static final int VERSION = 5;
 	public static final String PLUGIN_NAME = "RegionCommand";
 	public static int webVersion = 0;
 	public static String webURL = "https://www.spigotmc.org/resources/free-regioncommand.22012/";
+	public static int nextCommandID = 0;
 
 	@Override
 	public void onEnable() {
@@ -30,10 +34,15 @@ public class RegionCommand extends JavaPlugin {
 		Config.readConfig(this);
 		getCommand("addregioncommand").setExecutor(new CommandAddRegionCommand());
 		getCommand("removeregioncommand").setExecutor(new CommandRemoveRegionCommand());
+		getCommand("changeregioncommand").setExecutor(new CommandChangeRegionCommand());
 		getCommand("regioncommandlist").setExecutor(new CommandRegionCommandList());
 		this.getServer().getPluginManager().registerEvents(new PluginListener(), this);
 
-		Bukkit.getScheduler().runTaskTimerAsynchronously(this, new ThreadCheckUpdate(), 5, 56000);
+		try {
+			new KlemmsUpdate(this, PLUGIN_NAME, VERSION, BRANCH);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		metrics = new Metrics(this, 1068);
 	}

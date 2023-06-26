@@ -1,17 +1,19 @@
 package fr.klemms.regioncommand;
 
 public class Region {
-	
+
 	private String regionName;
 	private EventType eventType;
 	private String command;
 	private boolean removed;
+	private int id;
 
-	public Region(String regionName, EventType eventType, String command) {
+	public Region(String regionName, EventType eventType, String command, int id) {
 		this.regionName = regionName;
 		this.eventType = eventType;
 		this.command = command;
 		this.removed = false;
+		this.id = id;
 	}
 
 	public String getRegionName() {
@@ -44,5 +46,13 @@ public class Region {
 
 	public void setRemoved(boolean removed) {
 		this.removed = removed;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

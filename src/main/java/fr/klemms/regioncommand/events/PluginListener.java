@@ -5,8 +5,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.mewin.WGRegionEvents.events.RegionEnterEvent;
-import com.mewin.WGRegionEvents.events.RegionLeaveEvent;
+import net.raidstone.wgevents.events.RegionEnteredEvent;
+import net.raidstone.wgevents.events.RegionLeftEvent;
 
 import fr.klemms.regioncommand.EventType;
 import fr.klemms.regioncommand.RegionCommand;
@@ -17,7 +17,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 
 public class PluginListener implements Listener {
-	
+
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if(event.getPlayer().isOp() && RegionCommand.VERSION < RegionCommand.webVersion) {
@@ -26,18 +26,18 @@ public class PluginListener implements Listener {
 	}
 
 	@EventHandler
-	public void onRegionEnter(RegionEnterEvent event) {
+	public void onRegionEntered(RegionEnteredEvent event) {
 		for(int a = 0; a < RegionCommand.commandForRegion.size(); a++) {
-			if(!RegionCommand.commandForRegion.get(a).isRemoved() && event.getRegion().getId().equalsIgnoreCase(RegionCommand.commandForRegion.get(a).getRegionName()) && RegionCommand.commandForRegion.get(a).getEventType() == EventType.ENTER) {
+			if(!RegionCommand.commandForRegion.get(a).isRemoved() && event.getRegionName().equalsIgnoreCase(RegionCommand.commandForRegion.get(a).getRegionName()) && RegionCommand.commandForRegion.get(a).getEventType() == EventType.ENTER) {
 				Bukkit.getScheduler().scheduleSyncDelayedTask(RegionCommand.pl, new ThreadExecuteCommand(Variable.replaceVariable(RegionCommand.commandForRegion.get(a), event.getPlayer(), RegionCommand.commandForRegion.get(a).getCommand())));
 			}
 		}
 	}
 
 	@EventHandler
-	public void onRegionLeave(RegionLeaveEvent event) {
+	public void onRegionLeave(RegionLeftEvent event) {
 		for(int a = 0; a < RegionCommand.commandForRegion.size(); a++) {
-			if(!RegionCommand.commandForRegion.get(a).isRemoved() && event.getRegion().getId().equalsIgnoreCase(RegionCommand.commandForRegion.get(a).getRegionName()) && RegionCommand.commandForRegion.get(a).getEventType() == EventType.LEAVE) {
+			if(!RegionCommand.commandForRegion.get(a).isRemoved() && event.getRegionName().equalsIgnoreCase(RegionCommand.commandForRegion.get(a).getRegionName()) && RegionCommand.commandForRegion.get(a).getEventType() == EventType.LEAVE) {
 				Bukkit.getScheduler().scheduleSyncDelayedTask(RegionCommand.pl, new ThreadExecuteCommand(Variable.replaceVariable(RegionCommand.commandForRegion.get(a), event.getPlayer(), RegionCommand.commandForRegion.get(a).getCommand())));
 			}
 		}

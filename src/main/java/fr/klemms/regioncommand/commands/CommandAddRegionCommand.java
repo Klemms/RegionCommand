@@ -9,7 +9,7 @@ import fr.klemms.regioncommand.Region;
 import fr.klemms.regioncommand.RegionCommand;
 
 public class CommandAddRegionCommand implements CommandExecutor {
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String arg2, String[] args) {
 		if(args.length >= 3) {
@@ -17,7 +17,11 @@ public class CommandAddRegionCommand implements CommandExecutor {
 			for(int a = 0; a < args.length - 2; a++) {
 				s1 += args[a + 2] + " ";
 			}
-			Region region = new Region(args[0], EventType.getEventTypeByName(args[1]), s1);
+			Region region = new Region(
+					args[0],
+					EventType.getEventTypeByName(args[1]),
+					s1,
+					RegionCommand.nextCommandID++);
 			RegionCommand.commandForRegion.add(region);
 			sender.sendMessage("This command will be executed when a player enters/leaves the region '" + args[0] + "' : /" + s1);
 			RegionCommand.saveToDisk();
